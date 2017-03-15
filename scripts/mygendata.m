@@ -10,7 +10,8 @@ accuracy='real*4';
 dir_o = '/tank/groups/climode/chaocean/init_cond97_12/';
 
 % ocean input dir
-dir_1 = '/tank/groups/climode/chaocean/bc/meom/BrunoD/';
+dir_1_init = '/tank/chaocean/initial_data/';
+dir_1_obcs = '/tank/chaocean/boundary_data/';
 
 % atm input dir
 dir_era = '/tank/groups/climode/chaocean/era/';
@@ -109,10 +110,10 @@ fprintf('Building oceanic files \n');
   
 % ================ VERTICAL GRID =========================================
 
-fileT = 'y198m01d05/1987/CI-MJM88_y1987m01d05_gridT.nc';
+fileT = '1987/CI-MJM88_y1987m01d05_gridT.nc';
 
 
-dep = ncread([dir_1,fileT],'deptht');
+dep = ncread([dir_1_init,fileT],'deptht');
 [si_z,naux] = size(dep);
 
 %find weights for vertical interpolation
@@ -141,11 +142,11 @@ end
 % ================ TOPO =========================================
 fprintf('Topography \n');
 
-filetopo = 'y198m01d05/GRID/CI-MJM88_bathy_meter.nc';
+filetopo = 'grid/CI-MJM88_bathy_meter.nc';
   
-bathy   = double(ncread([dir_1,filetopo],'Bathymetry'));
-nav_lat = double(ncread([dir_1,filetopo],'nav_lat'));
-nav_lon = double(ncread([dir_1,filetopo],'nav_lon'));
+bathy   = double(ncread([dir_1_init,filetopo],'Bathymetry'));
+nav_lat = double(ncread([dir_1_init,filetopo],'nav_lat'));
+nav_lon = double(ncread([dir_1_init,filetopo],'nav_lon'));
 
 % do some checks
 fprintf('check grid: \n');
@@ -273,11 +274,11 @@ if build_init
   
 fprintf('Building Initial conditions \n');
 
-array_f = {'y198m01d05/1987/CI-MJM88_y1987m01d05_gridU.nc';
-           'y198m01d05/1987/CI-MJM88_y1987m01d05_gridV.nc';
-           'y198m01d05/1987/CI-MJM88_y1987m01d05_gridT.nc';
-           'y198m01d05/1987/CI-MJM88_y1987m01d05_gridT.nc';
-           'y198m01d05/1987/CI-MJM88_y1987m01d05_SSHaa.nc'};
+array_f = {'1987/CI-MJM88_y1987m01d05_gridU.nc';
+           '1987/CI-MJM88_y1987m01d05_gridV.nc';
+           '1987/CI-MJM88_y1987m01d05_gridT.nc';
+           '1987/CI-MJM88_y1987m01d05_gridT.nc';
+           '1987/CI-MJM88_y1987m01d05_SSHaa.nc'};
 
 
 for nv = 1:4
@@ -285,9 +286,9 @@ for nv = 1:4
 
   fileT = array_f{nv};
 
-  T_i = ncread([dir_1,fileT],array_v2{nv});
-  nav_lat = double(ncread([dir_1,fileT],'nav_lat'));
-  nav_lon = double(ncread([dir_1,fileT],'nav_lon'));
+  T_i = ncread([dir_1_init,fileT],array_v2{nv});
+  nav_lat = double(ncread([dir_1_init,fileT],'nav_lat'));
+  nav_lon = double(ncread([dir_1_init,fileT],'nav_lon'));
 
   [si_x,si_y,si_z] = size(T_i);
   t = zeros(si_x,si_y,si_z_mit);
@@ -336,9 +337,9 @@ end
 % SSH:
 nv = 5;
 fileT = array_f{nv};
-T_i = ncread([dir_1,fileT],array_v2{nv});
-nav_lat = double(ncread([dir_1,fileT],'nav_lat'));
-nav_lon = double(ncread([dir_1,fileT],'nav_lon'));
+T_i = ncread([dir_1_init,fileT],array_v2{nv});
+nav_lat = double(ncread([dir_1_init,fileT],'nav_lat'));
+nav_lon = double(ncread([dir_1_init,fileT],'nav_lon'));
 
 T_i(isnan(T_i)) = 0.0;
 % eta is on a different grid
@@ -366,13 +367,13 @@ for nb =1:si_b
   
   dir_2 = [bc_loc{nb} 'BDY-MJM88/1987/'];
   
-  %gridu = dir([dir_1, dir_2,'*m01d05*gridU*']);
-  %gridv = dir([dir_1, dir_2,'*m01d05*gridV*']);
-  %gridt = dir([dir_1, dir_2,'*m01d05*gridT*']);
+  %gridu = dir([dir_1_obcs, dir_2,'*m01d05*gridU*']);
+  %gridv = dir([dir_1_obcs, dir_2,'*m01d05*gridV*']);
+  %gridt = dir([dir_1_obcs, dir_2,'*m01d05*gridT*']);
 
-  gridu = dir([dir_1, dir_2,'*gridU*']);
-  gridv = dir([dir_1, dir_2,'*gridV*']);
-  gridt = dir([dir_1, dir_2,'*gridT*']);
+  gridu = dir([dir_1_obcs, dir_2,'*gridU*']);
+  gridv = dir([dir_1_obcs, dir_2,'*gridV*']);
+  gridt = dir([dir_1_obcs, dir_2,'*gridT*']);
 
   [si_f, naux] = size(gridu);
   
@@ -390,9 +391,9 @@ for nb =1:si_b
         fileT  = gridt(nf).name;
       end
       
-      T_i = ncread([dir_1,dir_2,fileT],array_v2{nv});
-      nav_lat = double(ncread([dir_1,dir_2,fileT],'nav_lat'));
-      nav_lon = double(ncread([dir_1,dir_2,fileT],'nav_lon'));
+      T_i = ncread([dir_1_obcs,dir_2,fileT],array_v2{nv});
+      nav_lat = double(ncread([dir_1_obcs,dir_2,fileT],'nav_lat'));
+      nav_lon = double(ncread([dir_1_obcs,dir_2,fileT],'nav_lon'));
       [si_x,si_y,si_z] = size(T_i);
 
       if (nb == 1)  % North
