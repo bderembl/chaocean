@@ -1,7 +1,7 @@
-This file will hep us keep track of all the runs
+This file will help us keep track of all the runs
 
-The version is important, because it will help us do reproducible runs
-to get the version, type in your git directory 
+Fill out the table below every time you start a run. The version is important, because it will help us do reproducible runs. To get the version, type in your git directory 
+
 ```
 git rev-parse --short HEAD
 ```

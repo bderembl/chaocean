@@ -39,3 +39,7 @@ The tiles are defined in 'SIZE.h'. Here is an exemple of a tiling configuration
 (this plot was produced with 'mygendata.m' with   'nxp = 10;' and  'nyp = 9;')
 
 ![alt tag](scripts/topo_tiles.png)
+
+## Runs
+
+Once you started a run, fill out the table in [runs/README.md](runs/README.md)
