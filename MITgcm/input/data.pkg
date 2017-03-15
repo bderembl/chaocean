@@ -1,0 +1,7 @@
+#!sh Packages
+ &PACKAGES
+ useOBCS=.TRUE.,
+ useGGL90=.TRUE.,
+ useCHEAPAML=.TRUE.,
+ useDIAGNOSTICS=.TRUE.,
+ &end

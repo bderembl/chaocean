@@ -1,0 +1,92 @@
+#!sh ====================
+# | Model parameters |
+# ====================
+#
+# Continuous equation parameters
+ &PARM01
+ viscAh=50,
+ viscA4=5.E10,
+ diffKhT=50.,
+ diffKhS=50.,
+ viscAz=1.E-5,
+ diffKzT=1.E-5,
+ diffKzS=1.E-5,
+ no_slip_sides=.FALSE.,
+ no_slip_bottom=.FALSE.,
+# eosType='MDJWF',
+ eosType='JMD95Z',
+# eosType='LINEAR',
+# tAlpha=2.E-4,
+# sBeta=7.4E-04,
+ rigidLid=.FALSE.,
+ implicitFreeSurface=.TRUE.,
+ exactConserv=.TRUE.,
+ hFacMin=0.4,
+ nonHydrostatic=.FALSE.,
+ readBinaryPrec=32,
+tempAdvScheme=33,
+saltAdvScheme=33,
+ staggerTimeStep=.TRUE.,
+ implicitDiffusion=.TRUE.,
+ implicitviscosity=.TRUE.,
+ useRealFreshWaterFlux=.FALSE.,
+ balanceEmPmR=.FALSE.,
+# momStepping=.FALSE.,
+# tempStepping=.FALSE.,
+# saltStepping=.FALSE.,
+ &end
+
+# Elliptic solver parameters
+ &PARM02
+ cg2dMaxIters=400,
+ cg2dTargetResidual=1.E-13,
+ cg3dMaxIters=200,
+ cg3dTargetResidual=1.E-8,
+ &end
+
+# Time stepping parameters
+ &PARM03
+ nIter0=0,
+#nTimeSteps=10,
+#10 yea
+ endTime=315360000,
+#20 days
+# endTime=1728000,
+ deltaT=200.0,
+ abEps=0.01,
+ pChkptFreq=0.0,
+ chkptFreq=0.0,
+# dumpFreq=120,
+# 5-day
+ dumpFreq=432000,
+ monitorFreq=432000.,
+ periodicExternalForcing=.TRUE.,
+#5 days
+ externForcingPeriod=432000,
+# 360 days
+ externForcingCycle=31104000,
+
+ &end
+
+
+# Gridding parameters
+ &PARM04
+ usingSphericalPolarGrid=.TRUE.,
+ ygOrigin=-20,
+ xgOrigin=262,
+delXfile='dx.box',
+delYfile='dy.box',
+delrfile='dz.box',
+ &end
+
+# Input datasets
+ &PARM05
+ bathyFile='topo.box',
+ uVelInitFile='u_init.box',
+ vVelInitFile='v_init.box',
+hydrogThetaFile='t_init.box',
+hydrogSaltFile='s_init.box',
+pSurfInitFile='e_init.box',
+# checkIniSalt=.FALSE.,
+# checkIniTemp=.FALSE.,
+ &end

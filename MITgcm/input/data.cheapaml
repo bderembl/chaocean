@@ -1,0 +1,36 @@
+#!sh Package CheapAML parameters
+#--------------------
+ &CHEAPAML_CONST
+  cheapaml_ntim = 5,
+  cheapaml_mask_width=5,
+  cheapaml_h = 1000.,
+  cheapaml_kdiff = 1000.
+ &
+
+ &CHEAPAML_PARM01
+ UWindFile='windx.box'
+ VWindFile='windy.box'
+ SolarFile='solar.box'
+ AirTempFile='tair.box'
+#same file for Tr
+ TrFile='tair.box'
+ AirQFile='qair.box'
+#same file for Qr
+ QrFile='qair.box'
+#cheap_hfile='blh.box'
+#cheap_clfile='clouds.box'
+ cheap_dlwfile='longwave.box'
+ periodicExternalForcing_cheap=.TRUE.,
+# 6Hours
+ externForcingPeriod_cheap=21600,
+ externForcingCycle_cheap=31557600
+ &
+
+ &CHEAPAML_PARM02
+  useFreshWaterFlux=.TRUE.,
+  useFluxLimit=.TRUE.,
+  FluxFormula='COARE3',
+  usetimevarblh=.FALSE.,
+  useclouds=.FALSE.,
+  usedlongwave=.TRUE.,
+ &
