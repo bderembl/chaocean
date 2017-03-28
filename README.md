@@ -33,12 +33,21 @@ dlo = 1/12;
 
 ## Configuration files for MITgcm
 
-All these files are in the MITgcm directory. The 2 sub-directories are input and code (usual MITgcm configurations files). Each time you change the resolution, you need to make sure the parameters in 'data' are still right. When the grid changes, you also need to update 'data.obcs'.
+All these files are in the MITgcm directory. The 2 sub-directories are input and code (usual MITgcm configurations files). Each time you change the resolution, you need to make sure the parameters in `data` are still right. When the grid changes, you also need to update `data.obcs`.
 
-The tiles are defined in 'SIZE.h'. Here is an exemple of a tiling configuration
-(this plot was produced with 'mygendata.m' with   'nxp = 10;' and  'nyp = 9;')
+The tiles are defined in `SIZE.h`. Here is an exemple of a tiling configuration
+(this plot was produced with `mygendata.m` with   `nxp = 10;` and  `nyp = 9;`)
 
 ![alt tag](scripts/topo_tiles.png)
+
+## 1/4 degree configuration
+
+to run a 1/4 degree run, you need to
+- change the resolution in mygendata.m
+- in `input` dir, copy `data.obcs_025` to `data.obcs` and `data_025` to `data`
+- in `code` dir, copy `SIZE.h_025` to `SIZE.h`
+
+This configuration is supposed to run on 25 procs
 
 ## Runs
 
