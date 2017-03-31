@@ -103,6 +103,7 @@ if flag_cut
   fprintf('*******************\n');
   fprintf('new si_x: %i \n',si_x_mit2);
   fprintf('lon cut: %6.2f \n',xx(x_cut+1));
+  fprintf('x_cut: %i \n',x_cut);
   fprintf('*******************\n');
 end
 
@@ -236,6 +237,8 @@ h2 = cut_gulf(h,mask_mit,x_cut,flag_cut,ybc);
 
 
 fid=fopen([dir_o,'topo.box'],'w',ieee); fwrite(fid,h2,accuracy); fclose(fid);
+fid=fopen([dir_o,'mask.box'],'w',ieee); fwrite(fid,mask_mit,accuracy); fclose(fid);
+
 
 % make a plot with the tile subdivision
 if (flag_plot == 1)
